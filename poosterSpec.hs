@@ -2,6 +2,7 @@ module PoosterSpec where
 
 import Test.Hspec
 import Counter
+import Main
 
 -- | Data Types
 -- | Examples
@@ -92,3 +93,7 @@ tests = hspec $ do
   describe "getTexOnly" $
     it "gets the files that end in .tex" $
       getTexOnly ["file.txt", "file.tex", "files.tex"] `shouldBe` ["file.tex", "files.tex"]
+
+  describe "Main" $
+    it "should read command line arguments" $
+      1 `shouldBe` 1

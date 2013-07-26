@@ -173,20 +173,22 @@ logSession :: FilePath -> IO ()
 logSession file = do
   session <- createSession file
   appendFile "session-history.txt" (sessionToString session)
+  putStrLn ("You have written " ++ (show (nwords session)) ++ " words")
 
-startSession :: FilePath -> IO ()
+startSession :: FilePath -> IO () 
 startSession file = do
   session <- texcountDirectory file
   writeFile "track-session.txt" (show session)
+  putStrLn "Session Started"
 
-trackSession :: FilePath -> IO Int 
+trackSession :: FilePath -> IO ()
 -- ^ shows how much you have written in that current session
 trackSession file = do
   stringsession <- readFile "track-session.txt"
   let session = (read stringsession :: Int)
   nwords <- (texcountDirectory file) 
-  let output = nwords - session
-  return output
+  let output = show (nwords - session)
+  putStrLn output
 
 texcountDirectory :: FilePath -> IO Int
 texcountDirectory dir = do
@@ -207,9 +209,3 @@ texcountList dir files = do
   let iowordcount = map texcount dirfiles
   fmap sum (sequence iowordcount)
 
-phdpath = "/Users/pooya/Documents/PHD-Thesis/mythesis/Chapters/"
-startPhd = startSession phdpath
-trackPhd = trackSession phdpath
-logPhd = logSession phdpath
-
--- ^ change this later
