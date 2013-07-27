@@ -209,3 +209,7 @@ texcountList dir files = do
   let iowordcount = map texcount dirfiles
   fmap sum (sequence iowordcount)
 
+showProgress :: FilePath -> IO ()
+showProgress file = do
+  output <- readFile file
+  putStrLn output
