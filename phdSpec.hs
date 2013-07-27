@@ -1,4 +1,4 @@
-module PoosterSpec where
+module PhdSpec where
 
 import Test.Hspec
 import Counter
@@ -57,7 +57,7 @@ tests = hspec $ do
 
   describe "texcount" $ do
     it "calls texcount and returns the total number of words" $ do 
-      output <- texcount "/Users/pooya/Programming/haskell/pooster-tools/samples/3word.tex" 
+      output <- texcount "/Users/pooya/Programming/haskell/phdTracker/samples/3word.tex" 
       output `shouldBe` 3
   --  it "should return error" $ do
   --    texcount "nothing" `shouldThrow` anyException
@@ -65,28 +65,28 @@ tests = hspec $ do
   describe "getWordCount" $
     it "takes the string output of texcount and returns the number of words as int" $ do
       --needs the tests on texcountString
-      let tcoutput = "File: /Users/pooya/Programming/haskell/pooster-tools/samples/3word.tex\nEncoding: ascii\nWords in text: 3\nWords in headers: 1\nWords in float captions: 0\nNumber of headers: 1\nNumber of floats: 0\nNumber of math inlines: 0\nNumber of math displayed: 0\n\n"
+      let tcoutput = "File: /Users/pooya/Programming/haskell/phdTracker/samples/3word.tex\nEncoding: ascii\nWords in text: 3\nWords in headers: 1\nWords in float captions: 0\nNumber of headers: 1\nNumber of floats: 0\nNumber of math inlines: 0\nNumber of math displayed: 0\n\n"
       getWordCount tcoutput `shouldBe` 3
   
   describe "createSession" $
     it "makes a new Session by running texcount on the directory and adding the date and time." $ do
-      output <- createSession "/Users/pooya/Programming/haskell/pooster-tools/samples/sample-directory/" 
+      output <- createSession "/Users/pooya/Programming/haskell/phdTracker/samples/sample-directory/" 
       nwords output `shouldBe` 6
 
   describe "startSession" $
     it "starts a writing session" $ do
-      startSession "/Users/pooya/Programming/haskell/pooster-tools/samples/3word.tex" 
-      output <- readFile  "/Users/pooya/Programming/haskell/pooster-tools/track-session.txt"
+      startSession "/Users/pooya/Programming/haskell/phdTracker/samples/" 
+      output <- readFile  "/Users/pooya/Programming/haskell/phdTracker/track-session.txt"
       output `shouldBe` "3"
- 
+{-
   describe "trackSession" $
     it "shows how much you have written in that current session" $ do
-      output <- trackSession  "/Users/pooya/Programming/haskell/pooster-tools/samples/3word.tex" 
-      output `shouldBe` 0
-
+      output <- trackSession  "/Users/pooya/Programming/haskell/phdTracker/samples/" 
+      output `shouldBe` "0"
+-}
   describe "texcountDirectory" $
     it "runs texcount on all files in a directory" $ do
-      let dir = "/Users/pooya/Programming/haskell/pooster-tools/samples/sample-directory/"
+      let dir = "/Users/pooya/Programming/haskell/phdTracker/samples/sample-directory/"
       output <- texcountDirectory dir 
       output `shouldBe` 6
 

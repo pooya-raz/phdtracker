@@ -173,7 +173,7 @@ logSession :: FilePath -> IO ()
 logSession file = do
   session <- createSession file
   appendFile "session-history.txt" (sessionToString session)
-  putStrLn ("You have written " ++ (show (nwords session)) ++ " words")
+  putStrLn ("You have written " ++ show (nwords session) ++ " words")
 
 startSession :: FilePath -> IO () 
 startSession file = do
@@ -185,8 +185,8 @@ trackSession :: FilePath -> IO ()
 -- ^ shows how much you have written in that current session
 trackSession file = do
   stringsession <- readFile "track-session.txt"
-  let session = (read stringsession :: Int)
-  nwords <- (texcountDirectory file) 
+  let session = read stringsession :: Int
+  nwords <- texcountDirectory file 
   let output = show (nwords - session)
   putStrLn output
 
@@ -194,8 +194,7 @@ texcountDirectory :: FilePath -> IO Int
 texcountDirectory dir = do
   files <- getDirectoryContents dir
   let texfiles = getTexOnly files
-  output <- (texcountList dir texfiles)
-  return output
+  texcountList dir texfiles
 
 getTexOnly :: [String] -> [String]
 -- ^ gets the files that end in .tex in list 
