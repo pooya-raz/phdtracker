@@ -7,9 +7,9 @@ cabal-dev
 *.hi
 *.chi
 *.chs.h
-.virthualenv
-.tix
-.mix
+*.virthualenv
+*.tix
+*.mix
 
 # Compiled source #
 ###################
